@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import Modal from '../modal/Modal';
 import PropTypes from 'prop-types';
 
-import './imageGalleryItem.css';
+import imageGalleryItem from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
+const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
 
   return (
     <>
-      <li onClick={() => handleModal()} className="gallery__item">
+      <li onClick={() => handleModal()} className={imageGalleryItem.item}>
         <img
-          className="gallery__item_image"
+          className={imageGalleryItem.itemImage}
           src={webformatURL}
           alt="someimage"
         />
@@ -48,6 +48,7 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
 export default ImageGalleryItem;
 
 ImageGalleryItem.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
 };

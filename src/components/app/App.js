@@ -6,6 +6,8 @@ import Button from '../button/Button';
 import Loader from '../loader/Loader';
 import useImageService from 'services/ImageService';
 
+import app from './App.module.css';
+
 const setContent = (process, Component, ButtonComponent, newItemLoading) => {
   switch (process) {
     case 'waiting':
@@ -81,11 +83,9 @@ const App = () => {
     // eslint-disable-next-line
   }, [process]);
 
-  console.log(process);
-
   return (
     <>
-      <div className="app">
+      <div className={app.app}>
         <Searchbar
           searchText={searchText}
           handleSearch={handleSearch}

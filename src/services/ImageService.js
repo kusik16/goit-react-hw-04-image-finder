@@ -10,7 +10,6 @@ const useImageService = () => {
     const res = await request(
       `https://pixabay.com/api/?q=${searchText}&page=${page}&key=${_apiKey}&image_type=photo&orientation=horizontal&per_page=12`
     );
-    console.log(res);
     return res.hits.map(_transformImage);
   };
 
