@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import imageGalleryItem from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
+const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -34,13 +34,13 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
           alt="someimage"
         />
       </li>
-      {showModal ? (
+      {showModal && (
         <Modal
           onEscapePress={onEscapePress}
           handleModal={handleModal}
           largeImageURL={largeImageURL}
         />
-      ) : null}
+      )}
     </>
   );
 };
@@ -48,7 +48,7 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
 export default ImageGalleryItem;
 
 ImageGalleryItem.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  id: PropTypes.number.isRequired,
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
 };
