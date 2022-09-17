@@ -45,6 +45,25 @@ const App = () => {
 
   const handleSearch = e => {
     setSearchText(e.target.value);
+    if (e.target.value !== searchText) {
+      setPage(1);
+    }
+  };
+
+  const scrollToMax = () => {
+    let scrollHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.body.clientHeight,
+      document.documentElement.clientHeight
+    );
+
+    window.scrollBy({
+      top: scrollHeight,
+      behavior: 'smooth',
+    });
   };
 
   const onSearchImage = (e, searchText) => {
@@ -54,23 +73,40 @@ const App = () => {
     setPage(1);
     setProcess('loading');
 
-    searchImage(page, searchText).then(res => {
-      setImages(res);
-      setProcess('confirmed');
-      setPage(page => page + 1);
-    });
+    searchImage(page, searchText)
+      .then(res => {
+        setImages(res);
+        setProcess('confirmed');
+        setPage(page => page + 1);
+      })
+      .catch(() =>
+        this.setState({
+          process: 'error',
+        })
+      );
   };
 
   const onLoadMore = () => {
     setProcess('loading');
     setnewItemLoading(true);
 
-    searchImage(page, searchText).then(res => {
-      setImages([...images, ...res]);
-      setProcess('confirmed');
-      setPage(page => page + 1);
-      setnewItemLoading(false);
-    });
+    searchImage(page, searchText)
+      .then(res => {
+        setImages([...images, ...res]);
+        setProcess('confirmed');
+        setPage(page => page + 1);
+        setnewItemLoading(false);
+      })
+      .then(() =>
+        setTimeout(() => {
+          scrollToMax();
+        }, 100)
+      )
+      .catch(() =>
+        this.setState({
+          process: 'error',
+        })
+      );
   };
 
   const elements = useMemo(() => {

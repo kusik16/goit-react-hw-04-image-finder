@@ -21,13 +21,19 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
     }
   };
 
-  const handleModal = () => {
-    setShowModal(showModal => !showModal);
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = e => {
+    if (e.target.tagName !== 'IMG') {
+      setShowModal(false);
+    }
   };
 
   return (
     <>
-      <li onClick={() => handleModal()} className={imageGalleryItem.item}>
+      <li onClick={() => openModal()} className={imageGalleryItem.item}>
         <img
           className={imageGalleryItem.itemImage}
           src={webformatURL}
@@ -37,7 +43,7 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
       {showModal && (
         <Modal
           onEscapePress={onEscapePress}
-          handleModal={handleModal}
+          closeModal={closeModal}
           largeImageURL={largeImageURL}
         />
       )}
