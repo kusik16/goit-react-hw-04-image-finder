@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import Modal from '../modal/Modal';
 import PropTypes from 'prop-types';
 
+import { scrollToMax } from 'utils/functions';
 import imageGalleryItem from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    scrollToMax();
     document.addEventListener('keydown', onEscapePress, false);
 
     return () => {

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 export const useHttp = () => {
-  const [process, setProcess] = useState('waiting');
+  const [process, setProcess] = useState('idle');
 
   const request = useCallback(async url => {
     setProcess('loading');
@@ -14,6 +14,7 @@ export const useHttp = () => {
       }
 
       const data = await response.json();
+      setProcess('ok');
       return data;
     } catch (e) {
       setProcess('error');

@@ -6,7 +6,7 @@ const useImageService = () => {
   const _apiKey = '29633570-ed278bc3600c586f3f6eb946e';
   const _page = 1;
 
-  const searchImage = async (page = _page, searchText) => {
+  const getImages = async (page = _page, searchText) => {
     const res = await request(
       `https://pixabay.com/api/?q=${searchText}&page=${page}&key=${_apiKey}&image_type=photo&orientation=horizontal&per_page=12`
     );
@@ -25,7 +25,7 @@ const useImageService = () => {
     clearError,
     process,
     setProcess,
-    searchImage,
+    getImages,
   };
 };
 

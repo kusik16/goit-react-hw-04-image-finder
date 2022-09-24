@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import searchbar from './Searchbar.module.css';
 
-const Searchbar = ({ handleSearch, onSearchImage, searchText }) => {
+const Searchbar = ({ onSearchSubmit }) => {
+  const [query, setQuery] = useState('');
+
   return (
     <header className={searchbar.header}>
-      <form
-        onSubmit={e => onSearchImage(e, searchText)}
-        className={searchbar.form}
-      >
+      <form onSubmit={e => onSearchSubmit(e, query)} className={searchbar.form}>
         <button type="submit" className={searchbar.btn}>
           <span className={searchbar.btnLabel}>Search</span>
         </button>
 
         <input
-          onChange={e => handleSearch(e)}
+          onChange={e => setQuery(e.target.value)}
           className={searchbar.input}
           type="text"
           autoComplete="off"
@@ -29,7 +29,5 @@ const Searchbar = ({ handleSearch, onSearchImage, searchText }) => {
 export default Searchbar;
 
 Searchbar.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
-  onSearchImage: PropTypes.func.isRequired,
-  searchText: PropTypes.string,
+  onSearchSubmit: PropTypes.func.isRequired,
 };
