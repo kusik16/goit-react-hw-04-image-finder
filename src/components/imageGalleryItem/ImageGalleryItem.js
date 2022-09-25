@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import Modal from '../modal/Modal';
 import PropTypes from 'prop-types';
 
@@ -9,12 +9,15 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    scrollToMax();
     document.addEventListener('keydown', onEscapePress, false);
 
     return () => {
       document.removeEventListener('keydown', onEscapePress, false);
     };
+  }, []);
+
+  useLayoutEffect(() => {
+    scrollToMax();
   }, []);
 
   const onEscapePress = e => {
